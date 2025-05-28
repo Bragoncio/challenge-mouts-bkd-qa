@@ -31,5 +31,5 @@ export function tentarCadastrarProduto(produto) {
     produto?.quantidade
   );
 
-  return cy.get('[data-testid="salvar-produto"]').click();
+  return cy.get('[data-testid="cadastarProdutos"]').click();
 }
