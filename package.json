@@ -1,0 +1,22 @@
+{
+    "name": "challenge-mouts-test-qa",
+    "version": "1.0.0",
+    "description": "Projeto de Automação Desafio Challenge Mouts",
+    "main": "index.js",
+    "scripts": {
+        "test": "npx cypress open"
+    },
+    "keywords": [
+        "Mouts",
+        "Cypress",
+        "Web",
+        "Api",
+        "Challenge"
+    ],
+    "author": "Leonardo Braga Protasio",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/cypress": "^1.1.3",
+        "cypress": "^14.4.0"
+    }
+}
