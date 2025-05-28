@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { gerarUsuarioAleatorio, cadastrarUsuarioViaInterface } from '../support/helpers/usuarioHelper';
+import { gerarUsuarioAleatorio, cadastrarUsuarioViaInterface } from '../../support/helpers/usuarioHelper';
 
 describe('Testes de Login', () => {
   before(function () {

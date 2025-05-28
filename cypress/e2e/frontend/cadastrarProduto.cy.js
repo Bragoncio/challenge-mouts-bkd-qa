@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-import { gerarUsuarioAleatorio, cadastrarUsuarioViaInterface } from '../support/helpers/usuarioHelper';
-import { gerarProdutoAleatorio, cadastrarProdutoViaInterface, tentarCadastrarProduto } from '../support/helpers/produtoHelper';
+import { gerarUsuarioAleatorio, cadastrarUsuarioViaInterface } from '../../support/helpers/usuarioHelper';
+import { gerarProdutoAleatorio, cadastrarProdutoViaInterface, tentarCadastrarProduto } from '../../support/helpers/produtoHelper';
 
 
 describe('Testes de Cadastro de Produto', () => {

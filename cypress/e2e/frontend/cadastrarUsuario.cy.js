@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { gerarUsuarioAleatorio, cadastrarUsuarioViaInterface, tentarCadastrarUsuario  } from '../support/helpers/usuarioHelper';
+import { gerarUsuarioAleatorio, cadastrarUsuarioViaInterface, tentarCadastrarUsuario  } from '../../support/helpers/usuarioHelper';
 
 describe('Testes de Cadastrar Usuários', () => {
   

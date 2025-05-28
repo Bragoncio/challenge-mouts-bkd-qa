@@ -1,0 +1,15 @@
+{
+    "method": "POST",
+    "url": "https://serverest.dev/usuarios",
+    "failOnStatusCode": false,
+    "header": {
+      "content-type": "application/json"
+    },
+    "body": {
+        "nome": "Fulano da Silva",
+        "email": "beltrano@qa.com.br",
+        "password": "teste",
+        "administrador": "true"
+    }
+}
+  
