@@ -1,38 +1,56 @@
 /// <reference types="cypress" />
 
+import { gerarUsuarioAleatorio, cadastrarUsuarioViaInterface } from '../support/helpers/usuarioHelper';
+
 describe('Testes de Login', () => {
-    let login;
+  before(function () {
+    const usuarioAdmin = gerarUsuarioAleatorio(true);
+    const usuarioComum = gerarUsuarioAleatorio(false);
 
-    beforeEach(() => {
-        cy.visit('/login');
-        cy.fixture('login').then((data) => {
-            login = data;
-        });
+    cy.wrap(usuarioAdmin).as('usuarioAdmin');
+    cadastrarUsuarioViaInterface(usuarioAdmin).then(() => {
+      cy.wrap(usuarioComum).as('usuarioComum');
+      cadastrarUsuarioViaInterface(usuarioComum);
+    });
+  });
+
+  beforeEach(() => {
+    cy.visit('/login');
+  });
+
+  context('Usuário Comum', () => {
+    it('Deve realizar o login com sucesso usando credenciais específicas', function () {
+      cy.login({ username: this.usuarioComum.email, password: this.usuarioComum.senha });
+      cy.url().should('include', '/home');
     });
 
-    it('Deve realizar o login com sucesso usando credenciais padrão', () => {
-        cy.url().should('include', '/login');
-        cy.contains('Login').should('be.visible');
+    it('Deve permitir o logout e redirecionar para a página de login', function () {
+      cy.login({ username: this.usuarioComum.email, password: this.usuarioComum.senha });
+      cy.url().should('include', '/home');
+      cy.get('[data-testid="logout"]').click();
+      cy.url().should('include', '/login');
+    });
+  });
+
+  context('Usuário Administrador', () => {
+    it('Deve realizar o login com sucesso usando credenciais de administrador', function () {
+      cy.login({ username: this.usuarioAdmin.email, password: this.usuarioAdmin.senha });
+      cy.url().should('include', '/admin/home');
     });
 
-    it('Deve realizar o login com sucesso usando credenciais específicas', () => {
-        cy.url().should('include', '/login');
-        cy.contains('Login').should('be.visible');
-        cy.login();
+    it('Deve permitir o logout do administrador e redirecionar para a página de login', function () {
+      cy.login({ username: this.usuarioAdmin.email, password: this.usuarioAdmin.senha });
+      cy.url().should('include', '/admin/home');
+      cy.get('[data-testid="logout"]').click();
+      cy.url().should('include', '/login');
     });
+  });
 
+  context('Fluxos de Exceção', () => {
     it('Deve exibir uma mensagem de erro ao tentar submeter o formulário com campos vazios', () => {
-        cy.url().should('include', '/login');
-        cy.login({ submitEmpty: true });
-        cy.contains('Email é obrigatório').should('be.visible');
-        cy.contains('Password é obrigatório').should('be.visible');
+      cy.login({ submitEmpty: true });
+      cy.contains('Email é obrigatório').should('be.visible');
+      cy.contains('Password é obrigatório').should('be.visible');
     });
-
-    it.only('Deve permitir o logout e redirecionar para a página de login', () => {
-        cy.login();
-        cy.url().should('include', '/admin/home');
-        cy.contains('Este é seu sistema para administrar seu ecommerce.').should('be.visible');
-        cy.get('[data-testid="logout"]').click();
-        cy.url().should('include', '/login');
-    });
+  });
 });

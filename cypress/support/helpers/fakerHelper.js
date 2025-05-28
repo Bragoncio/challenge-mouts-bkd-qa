@@ -13,5 +13,4 @@ class FakerHelper {
     return faker.internet.password(8);
   }
 }
-
-export default FakerHelper;
+export { FakerHelper };
