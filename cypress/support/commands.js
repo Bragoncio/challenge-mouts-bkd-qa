@@ -36,3 +36,24 @@ Cypress.Commands.add('login', ({ username = Cypress.env('username'), password = 
 
     cy.get('button[type="submit"]').click();
 });
+
+Cypress.Commands.add('preencherFormularioCadastroUsuario', (nome, email, senha,  admin = false ) => {
+    if (nome !== undefined) {
+      cy.get('input[name="nome"]').clear().type(nome);
+    }
+  
+    if (email !== undefined) {
+      cy.get('input[name="email"]').clear().type(email);
+    }
+  
+    if (senha !== undefined) {
+      cy.get('input[name="password"]').clear().type(senha);
+    }
+  
+    if (admin) {
+      cy.get('input[name="administrador"]').check();
+    } else {
+      cy.get('input[name="administrador"]').uncheck();
+    }
+  });
+  
