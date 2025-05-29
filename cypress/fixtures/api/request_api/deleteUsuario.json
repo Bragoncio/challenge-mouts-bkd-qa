@@ -1,0 +1,9 @@
+{
+    "method": "DELETE",
+    "url": "https://serverest.dev/usuarios/{usuarioId}",
+    "failOnStatusCode": false,
+    "header": {
+      "content-type": "application/json"
+    }
+  }
+  
