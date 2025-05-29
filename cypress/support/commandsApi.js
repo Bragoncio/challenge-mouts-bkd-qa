@@ -1,21 +1,15 @@
-Cypress.Commands.add('envioRequisicao', (nomeArquivoFixture, payloadCustomizado = {}) => {
+Cypress.Commands.add('envioRequisicao', (nomeArquivoFixture, payloadCustomizado = null) => {
+  if (payloadCustomizado) {
+    cy.api(payloadCustomizado).as('response');
+    cy.log(`Requisição enviada com payload customizado (sem fixture)`);
+  } else {
     const caminhoFixture = `api/request_api/${nomeArquivoFixture}`;
-  
     cy.fixture(caminhoFixture).then((conteudoFixture) => {
-      const payloadFinal = {
-        ...conteudoFixture,
-        ...payloadCustomizado,
-        body: {
-          ...conteudoFixture.body,
-          ...(payloadCustomizado.body || {}),
-        },
-      };
-  
-      cy.api(payloadFinal).as('response');
-      cy.log(`Requisição enviada usando fixture: ${nomeArquivoFixture} com payload customizado`);
+      cy.api(conteudoFixture).as('response');
+      cy.log(`Requisição enviada usando fixture: ${nomeArquivoFixture}`);
     });
-  });
-
+  }
+});
 
   Cypress.Commands.add("checkStatusCode", (status) => {
     cy.get("@response").then((res) => {
