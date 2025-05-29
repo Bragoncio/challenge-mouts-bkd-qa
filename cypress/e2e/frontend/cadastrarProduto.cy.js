@@ -25,7 +25,7 @@ describe('Testes de Cadastro de Produto', () => {
         });
     });
 
-    context.only('Validação de campos obrigatórios', () => {
+    context('Validação de campos obrigatórios', () => {
         it('Deve exibir erro ao tentar cadastrar sem informar o nome', () => {
             const produto = gerarProdutoAleatorio();
             produto.nome = undefined;
